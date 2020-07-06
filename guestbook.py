@@ -1,54 +1,74 @@
 import sys
 import time
+from datetime import date
+import datetime
+
 
 # Variablen
 
+datei_handler_count_words = open('guestbook_log.txt')
+inhalt = datei_handler_count_words.read()
+trennwoerter = inhalt.split(' ')
+
+leerzeichen = " "
+doppelpunkt = ":"
+verweis = ">>"
+
 req_password = 1234
+
+aktuelles_Datum = date.today()
+
+now = datetime.datetime.today()
+aktuelle_Zeit = now.strftime('%H:%M:%S')
 
 #Start.
 
+print()
+print('Anzahl Wörter: '+str(len(trennwoerter))+' Wörter')
 print()
 print("================")
 print("Guestbook")
 print("================")
 print()
 
-print("Loading...")
-time.sleep(1)
+
 
 input_name = input("Please enter your name! >>")
-time.sleep(0.6)
 
-print("Loading...")
-time.sleep(1.2)
+print()
 
 input_password = int(input("Please validate your ID! (password) >>"))
 
-print("Loading...")
-time.sleep(2.4)
 
 # Validate Password.
 
 if input_password == req_password:
     print()
-    time.sleep(1.5)
     
     print("Welcome,",input_name," ")
     print()
-    time.sleep(0.4)
+  
     
     #Create sentece.
     
     input_user = input("Enter your opinion! >>")
     datei_handler = open('guestbook_log.txt',mode='a')
-    datei_handler.write(input_user)
+    
+    ### text.write ###
+
+    datei_handler.write('\n'+input_name + leerzeichen + '[' + str(aktuelles_Datum) + ']' + leerzeichen + '[' + str(aktuelle_Zeit) + ']' + leerzeichen + verweis + leerzeichen + input_user)
+    
+    ### text.write ###
+
     print()
     print("Thank you,",input_name,"!")
-    time.sleep(1)
+    
 
-    print("The Guestbook will be closed in 5 seconds ...")
-    time.sleep(5)
+    print()
+    print("The Guestbook will be closed...")
+    time.sleep(1)
     exit(0)
+    
 
 else: print("Validation failed",input_name,":-(")
 print("The Guestbook will be closed in 5 seconds ...")
